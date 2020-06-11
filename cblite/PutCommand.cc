@@ -17,7 +17,7 @@
 //
 
 #include "CBLiteCommand.hh"
-#include "c4Transaction.hh"
+#include "c4.hh"
 #include <algorithm>
 
 

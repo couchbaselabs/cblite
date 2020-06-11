@@ -69,15 +69,11 @@ public:
         cerr <<
         "  Lists all indexes and the values they index.\n"
         ;
-        writeUsageCommand("info", false, "index NAME");
-        cerr <<
-        "  Displays information about index named NAME.\n"
-        ;
     }
 
 
     uint64_t countDocsWhere(const char *what) {
-        string n1ql = "SELECT count(*) WHERE "s + what;
+        string n1ql = string("SELECT count(*) WHERE ") + what;
         C4Error error;
         c4::ref<C4Query> q = c4query_new2(_db, kC4N1QLQuery, slice(n1ql), nullptr, &error);
         if (!q)
@@ -117,14 +113,7 @@ public:
         });
         openDatabaseFromNextArg();
 
-        if (peekNextArg() == "index") {
-            nextArg(nullptr);
-            if (hasArgs())
-                indexInfo(nextArg("index name"));
-            else
-                indexInfo();
-            return;
-        } else if (peekNextArg() == "indexes") {
+        if (peekNextArg() == "indexes") {
             indexInfo();
             return;
         }
@@ -270,28 +259,6 @@ public:
                 cout << "No indexes.\n";
             else
                 cout << "No index \"" << name << "\".\n";
-        } else if (!name.empty()) {
-            // Dump the index:
-            C4Error error;
-            alloc_slice rowData(c4db_getIndexRows(_db, slice(name), &error));
-            if (!rowData)
-                fail("getting index rows", error);
-            Doc doc(rowData);
-            for (Array::iterator i(doc.asArray()); i; ++i) {
-                auto row = i.value().asArray();
-                cout << "    ";
-                int c = 0;
-                for (Array::iterator j(row); j; ++j) {
-                    if (c++ > 0)
-                        cout << "\t";
-                    alloc_slice str(j.value().toString());
-                    if (str.size > 0)
-                        cout << str;
-                    else
-                        cout << "\"\"";
-                }
-                cout << "\n";
-            }
         }
     }
     

@@ -43,7 +43,7 @@ public:
 
     CBLiteTool(const CBLiteTool &parent)
     :Tool(parent)
-    ,_db(c4::retainRef(parent._db))
+    ,_db(c4db_retain(parent._db))
     ,_dbFlags(parent._dbFlags)
     ,_interactive(parent._interactive)
     { }

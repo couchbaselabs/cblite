@@ -17,7 +17,7 @@
 //
 
 #include "CBLiteCommand.hh"
-#include "c4Transaction.hh"
+#include "c4.hh"
 #include "DocBranchIterator.hh"
 #include <algorithm>
 
@@ -113,7 +113,8 @@ public:
                 c4::ref<C4Document> doc = c4enum_getDocument(e, &error);
                 if (!doc)
                     fail("reading a document", error);
-                auto [nPrunedRevs, nRemovedBodies] = pruneDoc(doc, pruneToDepth);
+                unsigned nPrunedRevs, nRemovedBodies;
+                tie(nPrunedRevs, nRemovedBodies) = pruneDoc(doc, pruneToDepth);
                 if (nPrunedRevs > 0 || nRemovedBodies > 0)
                     prunedDocs.emplace_back(c4doc_retain(doc));
                 totalPrunedRevs += nPrunedRevs;

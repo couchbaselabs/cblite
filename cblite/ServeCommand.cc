@@ -75,9 +75,6 @@ public:
 
 
     void runSubcommand() override {
-        // Register built-in WebSocket implementation:
-        C4RegisterBuiltInWebSocket();
-
         // Default configuration (everything else is false/zero):
         _listenerConfig.port = kDefaultPort;
         _listenerConfig.apis = c4listener_availableAPIs();
@@ -98,24 +95,6 @@ public:
             {"--verbose",   [&]{verboseFlag();}},
             {"-v",          [&]{verboseFlag();}},
         });
-#ifdef COUCHBASE_ENTERPRISE
-        C4TLSConfig tlsConfig = {};
-        alloc_slice certData, keyData, keyPassword;
-        tie(certData, keyData, keyPassword) = getCertAndKeyArgs();
-        if (certData) {
-            C4Error err;
-            c4::ref<C4Cert> cert = c4cert_fromData(certData, &err);
-            if (!cert)
-                fail("Couldn't read certificate data", err);
-            c4::ref<C4KeyPair> key = c4keypair_fromPrivateKeyData(keyData, keyPassword, &err);
-            if (!key)
-                fail("Couldn't read private key data", err);
-            tlsConfig.certificate = cert;
-            tlsConfig.key = key;
-            tlsConfig.privateKeyRepresentation = kC4PrivateKeyFromKey;
-            _listenerConfig.tlsConfig = &tlsConfig;
-        }
-#endif
 
         bool serveDirectory = !_listenerDirectory.empty();
         if (serveDirectory) {
@@ -144,17 +123,13 @@ public:
         if (_db) {
             alloc_slice dbPath(c4db_getPath(_db));
             name = databaseNameFromPath(dbPath);
-            C4Error err;
-            bool started = c4listener_shareDB(_listener, name, _db, &err);
-            if(!started) {
-                cerr << "Got error when starting listener: " << err.domain << " / " << err.code << endl;
+            bool started = c4listener_shareDB(_listener, name, _db);
+            if(!started)
                 fail("Failed to start listener...");
-            }
         }
 
         // Announce the URL(s):
-        string urlSuffix = CONCAT((_listenerConfig.tlsConfig ? "s" : "")
-                                << "://localhost:" << _listenerConfig.port << "/");
+        string urlSuffix = CONCAT("://localhost:" << _listenerConfig.port << "/");
         if (!serveDirectory)
             urlSuffix += string(name) + "/";
         if (_listenerConfig.apis & kC4RESTAPI) {
@@ -184,7 +159,6 @@ public:
     #endif
 
         cout << " Stopping server...\n";
-        c4listener_free(_listener);
         _listener = nullptr;
     }
 

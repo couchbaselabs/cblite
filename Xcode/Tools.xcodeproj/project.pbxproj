@@ -7,10 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2716F94D2491822700BE21D9 /* CheckCommand.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2716F94C2491822700BE21D9 /* CheckCommand.cc */; };
-		2716F95B2491857E00BE21D9 /* ReindexCommand.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2716F95A2491857E00BE21D9 /* ReindexCommand.cc */; };
 		271BA4AE227CC54300D49D13 /* EncryptCommand.cc in Sources */ = {isa = PBXBuildFile; fileRef = 271BA4AD227CC54300D49D13 /* EncryptCommand.cc */; };
-		271BA4F7228B8CC600D49D13 /* libLiteCoreWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 271BA4F6228B8CC600D49D13 /* libLiteCoreWebSocket.a */; };
 		271BA4FB228B8CFA00D49D13 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 271BA4FA228B8CF900D49D13 /* Security.framework */; };
 		272946AC23FF788400F6B737 /* CompactCommand.cc in Sources */ = {isa = PBXBuildFile; fileRef = 272946AB23FF788400F6B737 /* CompactCommand.cc */; };
 		272F00CF226F7FE500E62F72 /* cbl-log.cc in Sources */ = {isa = PBXBuildFile; fileRef = 272F00C3226F7FB100E62F72 /* cbl-log.cc */; };
@@ -27,7 +24,6 @@
 		276CE5D1225FADB200B681AC /* tests_main.cc in Sources */ = {isa = PBXBuildFile; fileRef = 276CE5D0225FADB200B681AC /* tests_main.cc */; };
 		27E95BAB2408376B0013711C /* CBLiteCommand.cc in Sources */ = {isa = PBXBuildFile; fileRef = 27E95BAA2408376B0013711C /* CBLiteCommand.cc */; };
 		27F41D512329629B00EF27BB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27F41D442329629B00EF27BB /* Foundation.framework */; };
-		27F41D5F2329725500EF27BB /* LogcatCommand.cc in Sources */ = {isa = PBXBuildFile; fileRef = 27F41D5E2329725500EF27BB /* LogcatCommand.cc */; };
 		27FC8DDD22137C330083B033 /* ListCommand.cc in Sources */ = {isa = PBXBuildFile; fileRef = 27FC8DD222137C330083B033 /* ListCommand.cc */; };
 		27FC8DDE22137C330083B033 /* CpCommand.cc in Sources */ = {isa = PBXBuildFile; fileRef = 27FC8DD322137C330083B033 /* CpCommand.cc */; };
 		27FC8DDF22137C330083B033 /* CatCommand.cc in Sources */ = {isa = PBXBuildFile; fileRef = 27FC8DD422137C330083B033 /* CatCommand.cc */; };
@@ -57,19 +53,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		271BA4F5228B8CC600D49D13 /* PBXContainerItemProxy */ = {
+		2716F9812492B9BF00BE21D9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 27FC8DFD22137CB50083B033 /* LiteCore.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 2771A098228624C000B18E0A;
-			remoteInfo = LiteCoreWebSocket;
+			remoteGlobalIDString = 279D410E1EA5558100D8DD9D;
+			remoteInfo = "LiteCoreREST dylib";
 		};
-		271BA4F8228B8CD600D49D13 /* PBXContainerItemProxy */ = {
+		2716F9832492B9BF00BE21D9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 27FC8DFD22137CB50083B033 /* LiteCore.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 2771A097228624C000B18E0A;
-			remoteInfo = LiteCoreWebSocket;
+			proxyType = 2;
+			remoteGlobalIDString = 279D40FE1EA54A9D00D8DD9D;
+			remoteInfo = civetweb;
+		};
+		2716F9852492B9BF00BE21D9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 27FC8DFD22137CB50083B033 /* LiteCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 93FA3F481EE21A4D00D15CF5;
+			remoteInfo = "LiteCoreServ-iOS";
 		};
 		27FC8E1322137CB60083B033 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -202,8 +205,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2716F94C2491822700BE21D9 /* CheckCommand.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CheckCommand.cc; sourceTree = "<group>"; };
-		2716F95A2491857E00BE21D9 /* ReindexCommand.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ReindexCommand.cc; sourceTree = "<group>"; };
 		271BA4A2227CC06000D49D13 /* Project_Debug_EE.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Project_Debug_EE.xcconfig; sourceTree = "<group>"; };
 		271BA4A3227CC09600D49D13 /* Project_Release_EE.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Project_Release_EE.xcconfig; sourceTree = "<group>"; };
 		271BA4AD227CC54300D49D13 /* EncryptCommand.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EncryptCommand.cc; sourceTree = "<group>"; };
@@ -227,7 +228,6 @@
 		27E95BAA2408376B0013711C /* CBLiteCommand.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CBLiteCommand.cc; sourceTree = "<group>"; };
 		27E95BAC24083D7C0013711C /* ListCommand.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ListCommand.hh; sourceTree = "<group>"; };
 		27F41D442329629B00EF27BB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		27F41D5E2329725500EF27BB /* LogcatCommand.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LogcatCommand.cc; sourceTree = "<group>"; };
 		27FC8DC722137BF60083B033 /* cblite */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cblite; sourceTree = BUILT_PRODUCTS_DIR; };
 		27FC8DD222137C330083B033 /* ListCommand.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ListCommand.cc; sourceTree = "<group>"; };
 		27FC8DD322137C330083B033 /* CpCommand.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CpCommand.cc; sourceTree = "<group>"; };
@@ -297,7 +297,6 @@
 			files = (
 				27FC8E3622137CD30083B033 /* libLiteCore-static.a in Frameworks */,
 				27FC8E6A221383AE0083B033 /* libLiteCoreREST-static.a in Frameworks */,
-				271BA4F7228B8CC600D49D13 /* libLiteCoreWebSocket.a in Frameworks */,
 				27FC8E64221381C60083B033 /* liblinenoise.a in Frameworks */,
 				27FC8E67221383880083B033 /* libz.tbd in Frameworks */,
 				27F41D512329629B00EF27BB /* Foundation.framework in Frameworks */,
@@ -383,17 +382,14 @@
 				27E95BAA2408376B0013711C /* CBLiteCommand.cc */,
 				27E95BA92408376B0013711C /* CBLiteCommand.hh */,
 				27FC8DD422137C330083B033 /* CatCommand.cc */,
-				2716F94C2491822700BE21D9 /* CheckCommand.cc */,
 				272946AB23FF788400F6B737 /* CompactCommand.cc */,
 				27FC8DD322137C330083B033 /* CpCommand.cc */,
 				271BA4AD227CC54300D49D13 /* EncryptCommand.cc */,
 				27FC8DD622137C330083B033 /* InfoCommand.cc */,
-				27F41D5E2329725500EF27BB /* LogcatCommand.cc */,
 				27FC8DD222137C330083B033 /* ListCommand.cc */,
 				27E95BAC24083D7C0013711C /* ListCommand.hh */,
 				27FC8DD722137C330083B033 /* PutCommand.cc */,
 				27FC8DDC22137C330083B033 /* QueryCommand.cc */,
-				2716F95A2491857E00BE21D9 /* ReindexCommand.cc */,
 				27FC8DD522137C330083B033 /* RevsCommand.cc */,
 				27FC8DD822137C330083B033 /* ServeCommand.cc */,
 				27FC8DDA22137C330083B033 /* SQLCommand.cc */,
@@ -429,14 +425,16 @@
 				27FC8E1622137CB60083B033 /* libLiteCore.dylib */,
 				27FC8E1822137CB60083B033 /* LiteCore.framework */,
 				27FC8E1A22137CB60083B033 /* libLiteCoreREST-static.a */,
-				271BA4F6228B8CC600D49D13 /* libLiteCoreWebSocket.a */,
+				2716F9822492B9BF00BE21D9 /* libLiteCoreREST.dylib */,
 				27FC8E1E22137CB60083B033 /* libSupport.a */,
 				27FC8E2022137CB60083B033 /* LiteCoreCppTests */,
 				27FC8E2222137CB60083B033 /* C4Tests */,
-				27FC8E2C22137CB60083B033 /* LiteCoreTests.xctest */,
 				27FC8E2622137CB60083B033 /* libSQLite.a */,
 				27FC8E2822137CB60083B033 /* libTokenizer.a */,
+				2716F9842492B9BF00BE21D9 /* libcivetweb.a */,
+				27FC8E2C22137CB60083B033 /* LiteCore Tests.xctest */,
 				27FC8E2E22137CB60083B033 /* LiteCore-iOS.app */,
+				2716F9862492B9BF00BE21D9 /* LiteCoreServ-iOS.app */,
 				27FC8E3222137CB60083B033 /* LiteCore-iOS Tests.xctest */,
 			);
 			name = Products;
@@ -574,7 +572,6 @@
 			dependencies = (
 				27FC8E69221383A80083B033 /* PBXTargetDependency */,
 				27FC8E3422137CC90083B033 /* PBXTargetDependency */,
-				271BA4F9228B8CD600D49D13 /* PBXTargetDependency */,
 			);
 			name = cblite;
 			productName = cblite;
@@ -648,11 +645,25 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		271BA4F6228B8CC600D49D13 /* libLiteCoreWebSocket.a */ = {
+		2716F9822492B9BF00BE21D9 /* libLiteCoreREST.dylib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = libLiteCoreREST.dylib;
+			remoteRef = 2716F9812492B9BF00BE21D9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2716F9842492B9BF00BE21D9 /* libcivetweb.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = libLiteCoreWebSocket.a;
-			remoteRef = 271BA4F5228B8CC600D49D13 /* PBXContainerItemProxy */;
+			path = libcivetweb.a;
+			remoteRef = 2716F9832492B9BF00BE21D9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2716F9862492B9BF00BE21D9 /* LiteCoreServ-iOS.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "LiteCoreServ-iOS.app";
+			remoteRef = 2716F9852492B9BF00BE21D9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		27FC8E1422137CB60083B033 /* libLiteCore-static.a */ = {
@@ -718,10 +729,10 @@
 			remoteRef = 27FC8E2722137CB60083B033 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		27FC8E2C22137CB60083B033 /* LiteCoreTests.xctest */ = {
+		27FC8E2C22137CB60083B033 /* LiteCore Tests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = LiteCoreTests.xctest;
+			path = "LiteCore Tests.xctest";
 			remoteRef = 27FC8E2B22137CB60083B033 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -768,8 +779,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2716F94D2491822700BE21D9 /* CheckCommand.cc in Sources */,
-				2716F95B2491857E00BE21D9 /* ReindexCommand.cc in Sources */,
 				27FC8DE222137C330083B033 /* PutCommand.cc in Sources */,
 				27FC8DE622137C330083B033 /* QueryCommand.cc in Sources */,
 				27FC8DF322137C490083B033 /* RemoteEndpoint.cc in Sources */,
@@ -782,7 +791,6 @@
 				27FC8DE322137C330083B033 /* ServeCommand.cc in Sources */,
 				27FC8DDF22137C330083B033 /* CatCommand.cc in Sources */,
 				27FC8DF622137C490083B033 /* DirEndpoint.cc in Sources */,
-				27F41D5F2329725500EF27BB /* LogcatCommand.cc in Sources */,
 				27FC8DDD22137C330083B033 /* ListCommand.cc in Sources */,
 				27FC8DF222137C490083B033 /* Endpoint.cc in Sources */,
 				27FC8DE522137C330083B033 /* SQLCommand.cc in Sources */,
@@ -807,11 +815,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		271BA4F9228B8CD600D49D13 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = LiteCoreWebSocket;
-			targetProxy = 271BA4F8228B8CD600D49D13 /* PBXContainerItemProxy */;
-		};
 		27FC8E3422137CC90083B033 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "LiteCore static";

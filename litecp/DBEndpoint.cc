@@ -228,7 +228,7 @@ void DbEndpoint::replicateWith(RemoteEndpoint &remote, bool pushing) {
     cout << "...\n";
     C4ReplicatorParameters params = replicatorParameters(pushMode, pullMode);
     C4Error err;
-    replicate(c4repl_new(_db, remote.url(), remote.databaseName(), params, &err), err);
+    replicate(c4repl_new(_db, remote.url(), remote.databaseName(), nullptr, params, &err), err);
 }
 
 
@@ -243,7 +243,7 @@ void DbEndpoint::pushToLocal(DbEndpoint &dst) {
     cout << "...\n";
     C4ReplicatorParameters params = replicatorParameters(kC4OneShot, pullMode);
     C4Error err;
-    replicate(c4repl_newLocal(_db, dst._db, params, &err), err);
+    replicate(c4repl_new(_db, {}, nullslice, dst._db, params, &err), err);
 #else
     error::_throw(error::Domain::LiteCore, kC4ErrorUnimplemented);
 #endif
@@ -257,39 +257,18 @@ C4ReplicatorParameters DbEndpoint::replicatorParameters(C4ReplicatorMode push, C
     params.callbackContext = this;
 
     bool basicAuth = !_credentials.first.empty();
-    if (basicAuth || _clientCert || _rootCerts) {
+    if (basicAuth) {
         fleece::Encoder enc;
         enc.beginDict();
-
-        if (basicAuth || _clientCert) {
-            enc.writeKey(slice(kC4ReplicatorOptionAuthentication));
-            enc.beginDict();
-            enc.writeKey(slice(kC4ReplicatorAuthType));
-            if (_clientCert) {
-                enc.writeString(kC4AuthTypeClientCert);
-                enc.writeKey(slice(kC4ReplicatorAuthClientCert));
-                enc.writeData(_clientCert);
-                if (_clientCertKey) {
-                    enc.writeKey(slice(kC4ReplicatorAuthClientCertKey));
-                    enc.writeData(_clientCertKey);
-                    if (_clientCertKeyPassword) {
-                        enc.writeKey(slice(kC4ReplicatorAuthPassword));
-                        enc.writeData(_clientCertKeyPassword);
-                    }
-                }
-            } else {
-                enc.writeString(kC4AuthTypeBasic);
-                enc.writeKey(slice(kC4ReplicatorAuthUserName));
-                enc.writeString(_credentials.first);
-                enc.writeKey(slice(kC4ReplicatorAuthPassword));
-                enc.writeString(_credentials.second);
-            }
-            enc.endDict();
-        }
-        if (_rootCerts) {
-            enc.writeKey(slice(kC4ReplicatorOptionRootCerts));
-            enc.writeData(_rootCerts);
-        }
+        enc.writeKey(slice(kC4ReplicatorOptionAuthentication));
+        enc.beginDict();
+        enc.writeKey(slice(kC4ReplicatorAuthType));
+        enc.writeString(kC4AuthTypeBasic);
+        enc.writeKey(slice(kC4ReplicatorAuthUserName));
+        enc.writeString(_credentials.first);
+        enc.writeKey(slice(kC4ReplicatorAuthPassword));
+        enc.writeString(_credentials.second);
+        enc.endDict();
         enc.endDict();
         _options = enc.finish();
         params.optionsDictFleece = _options;
@@ -323,7 +302,7 @@ void DbEndpoint::replicate(C4Replicator *repl, C4Error &err) {
     c4::ref<C4Replicator> replicator = repl;
     C4ReplicatorStatus status;
     _stopwatch.start();
-    c4repl_start(replicator, false);
+    c4repl_start(replicator);
     while ((status = c4repl_getStatus(replicator)).level != kC4Stopped)
         this_thread::sleep_for(chrono::milliseconds(100));
     startLine();

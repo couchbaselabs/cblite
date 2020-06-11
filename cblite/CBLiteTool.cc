@@ -33,7 +33,6 @@ void CBLiteTool::usage() {
     cerr <<
     ansiBold() << "cblite: Couchbase Lite / LiteCore database multi-tool\n" << ansiReset() <<
     "Usage: cblite cat " << it("[FLAGS] DBPATH DOCID [DOCID...]") << "\n"
-    "       cblite check " << it("DBPATH") << "\n"
     "       cblite compact " << it("DBPATH") << "\n"
     "       cblite cp " << it("[FLAGS] SOURCE DESTINATION") << "\n"
 #ifdef COUCHBASE_ENTERPRISE
@@ -42,13 +41,11 @@ void CBLiteTool::usage() {
 #endif
     "       cblite help " << it("[SUBCOMMAND]") << "\n"
     "       cblite info " << it("[FLAGS] DBPATH [indexes] [index NAME]") << "\n"
-    "       cblite logcat " << it("[FLAGS] LOG_PATH [...]") << "\n"
     "       cblite ls " << it("[FLAGS] DBPATH [PATTERN]") << "\n"
     "       cblite pull " << it("[FLAGS] DBPATH SOURCE") << "\n"
     "       cblite push " << it("[FLAGS] DBPATH DESTINATION") << "\n"
     "       cblite put " << it("[FLAGS] DBPATH DOCID \"JSON\"") << "\n"
     "       cblite query " << it("[FLAGS] DBPATH JSONQUERY") << "\n"
-    "       cblite reindex " << it("DBPATH") << "\n"
     "       cblite revs " << it("DBPATH DOCID") << "\n"
     "       cblite rm " << it("DBPATH DOCID") << "\n"
     "       cblite select " << it("[FLAGS] DBPATH N1QLQUERY") << "\n"
@@ -271,7 +268,6 @@ void CBLiteTool::helpCommand() {
     } else if (_interactive) {
         cout << bold("Subcommands:") << "\n" <<
         "    cat " << it("[FLAGS] DOCID [DOCID...]") << "\n"
-        "    check\n"
         "    compact\n"
         "    cp " << it("[FLAGS] DESTINATION") << "\n"
 #ifdef COUCHBASE_ENTERPRISE
@@ -280,13 +276,11 @@ void CBLiteTool::helpCommand() {
 #endif
         "    help " << it("[SUBCOMMAND]") << "\n"
         "    info " << it("[FLAGS] [indexes] [index NAME]") << "\n"
-        "    logcat " << it("[FLAGS] LOG_PATH [...]") << "\n"
         "    ls " << it("[FLAGS] [PATTERN]") << "\n"
         "    pull " << it("[FLAGS] SOURCE") << "\n"
         "    push " << it("[FLAGS] DESTINATION") << "\n"
         "    put " << it("[FLAGS] DOCID JSON_BODY") << "\n"
         "    query " << it("[FLAGS] JSON_QUERY") << "\n"
-        "    reindex\n"
         "    revs " << it("DOCID") << "\n"
         "    rm " << it("DOCID") << "\n"
         "    select " << it("[FLAGS] N1QLQUERY") << "\n"
@@ -311,21 +305,17 @@ unique_ptr<CBLiteCommand> CBLiteTool::subcommand(const string &name) {
     CBLiteCommand* (*factory)(CBLiteTool&) = nullptr;
     processFlag(name, {
         {"cat",     [&]{factory = &newCatCommand;}},
-        {"check",   [&]{factory = newCheckCommand;}},
         {"compact", [&]{factory = newCompactCommand;}},
         {"cp",      [&]{factory = newCpCommand;}},
         {"export",  [&]{factory = newExportCommand;}},
         {"file",    [&]{factory = newInfoCommand;}},
         {"import",  [&]{factory = newImportCommand;}},
         {"info",    [&]{factory = newInfoCommand;}},
-        {"log",     [&]{factory = newLogcatCommand;}},
-        {"logcat",  [&]{factory = newLogcatCommand;}},
         {"ls",      [&]{factory = newListCommand;}},
         {"pull",    [&]{factory = newPullCommand;}},
         {"push",    [&]{factory = newPushCommand;}},
         {"put",     [&]{factory = newPutCommand;}},
         {"query",   [&]{factory = newQueryCommand;}},
-        {"reindex", [&]{factory = newReindexCommand;}},
         {"revs",    [&]{factory = newRevsCommand;}},
         {"rm",      [&]{factory = newRmCommand;}},
         {"SELECT",  [&]{factory = newSelectCommand;}},

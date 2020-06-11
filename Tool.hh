@@ -20,6 +20,7 @@
 #include "fleece/Fleece.hh"
 #include "StringUtil.hh"
 #include "ArgumentTokenizer.hh"
+#include "function_ref.hh"
 #include <iostream>
 #include <string>
 #include <deque>

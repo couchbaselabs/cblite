@@ -51,9 +51,7 @@ public:
         "DESTINATION" << ansiReset() << "\n"
         "  Copies local and remote databases and JSON files.\n"
         "    --bidi : Bidirectional (push+pull) replication.\n"
-        "    --cacert <file> : Use X.509 certificates in <file> to validate server TLS cert.\n"
         "    --careful : Abort on any error.\n"
-        "    --cert <file> : Use X.509 certificate in <file> for TLS client authentication.\n"
         "    --continuous : Continuous replication.\n"
         "    --existing or -x : Fail if DESTINATION doesn't already exist.\n"
         "    --jsonid <property> : JSON property name to map to document IDs. (Defaults to \"_id\".)\n"
@@ -98,9 +96,6 @@ public:
 
 
     void runSubcommand() override {
-        // Register built-in WebSocket implementation:
-        C4RegisterBuiltInWebSocket();
-
         // Read params:
         processFlags({
             {"--bidi",      [&]{_bidi = true;}},
@@ -112,8 +107,6 @@ public:
             {"--key",       [&]{keyFlag();}},
             {"--limit",     [&]{limitFlag();}},
             {"--replicate", [&]{_replicate = true;}},
-            {"--rootcerts", [&]{_rootCertsFile = nextArg("rootcerts path");}},
-            {"--cacert",    [&]{_rootCertsFile = nextArg("cacert path");}}, // curl uses this name
             {"--user",      [&]{_user = nextArg("user name for replication");}},
             {"--verbose",   [&]{verboseFlag();}},
             {"-v",          [&]{verboseFlag();}},
@@ -160,20 +153,7 @@ public:
             localDB->setBidirectional(_bidi);
             localDB->setContinuous(_continuous);
 
-            if (!_rootCertsFile.empty())
-                localDB->setRootCerts(readFile(_rootCertsFile));
-
-            alloc_slice cert, keyData, keyPassword;
-            tie(cert, keyData, keyPassword) = getCertAndKeyArgs();
-            if (cert) {
-                localDB->setClientCert(cert);
-                localDB->setClientCertKey(keyData);
-                localDB->setClientCertKeyPassword(keyPassword);
-            }
-
             if (!_user.empty()) {
-                if (cert)
-                    fail("Cannot use both client cert and HTTP auth");
                 string user;
                 string password;
                 auto colon = _user.find(':');
@@ -239,7 +219,6 @@ private:
     bool                    _continuous {false};
     bool                    _replicate {false};
     alloc_slice             _jsonIDProperty {"_id"};
-    std::string             _rootCertsFile;
     string                  _user;
 };
 
