@@ -15,18 +15,12 @@ Official support of the `cblite` tool is not yet available. This applies also to
 #### June 2020:
 
 * The Enterprise-Edition build can now open encrypted databases. Interactive mode will automatically prompt for a password; in one-shot mode you must add the `--encrypted` flag before the database name to get the prompt. A raw AES256 key can be entered at the password prompt as a 64-digit hex string.
-* Added a `compact` subcommand that compacts the database. It can also prune old revisions and purge deleted documents.
-* Added a `logcat` subcommand that displays CBL binary log files.
 * Improvements to the `file` subcommand:
   * Renamed to the more memorable `info`. But `file` still works.
   * Now displays more information, like the total on-disk size of document bodies and metadata.
   * `--verbose` flag makes it show even _more_ information.
   * New sub-subcommand `info indexes` lists the database indexes.
-  * New sub-subcommand `info index NAME` gives information about the index named `NAME`.
-* Improvements to the `cp` (AKA `push`, `pull`) subcommand:
-  * Now supports replication over TLS.
-  * `--cacert` flag gives a custom X.509 certificate for the replicator to use when validating the server certificate.
-  * `--cert` flag gives a certificate for the replicator to use for _client_ authentication to the server.
+* The `cp` (AKA `push`, `pull`) subcommand now supports replication over TLS.
 * The `revs` subcommand now shows closed conflict branches.
 * Terminal output uses ANSI colors by default if the semi-standard `CLICOLOR` environment variable is set.
 
@@ -39,7 +33,6 @@ Official support of the `cblite` tool is not yet available. This applies also to
 | `cblite cp`    | Replicate a database, or import/export JSON |
 | `cblite info`  | Display information about the database |
 | `cblite help`  | Display help text |
-|`cblite logcat` | Convert binary log files to text |
 | `cblite ls`    | List the documents in the database |
 | `cblite put`   | Create or update a document |
 | `cblite query` | Run queries, using the [JSON Query Schema][QUERY] |

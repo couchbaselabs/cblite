@@ -7,27 +7,43 @@ In one-shot usage the first argument is a subcommand name, followed by optional 
 | Command        | Purpose |
 |----------------|---------|
 | `cblite cat`   | Display the body of one or more documents |
+|`cblite compact` | Compacts the database file, freeing up disk space |
 | `cblite cp`    | Replicate, import or export a database |
-| `cblite file`  | Display information about the database |
 | `cblite help`  | Display help text |
+| `cblite info`  | Display information about the database |
 | `cblite ls`    | List the documents in the database |
 | `cblite put`   | Create or update a document |
 | `cblite query` | Run queries, using the [JSON Query Schema][QUERY] |
 | `cblite revs`  | List the revisions of a document |
 | `cblite rm`    | Delete a document |
 | `cblite select`| Run queries, using [N1QL][N1QL] syntax |
-| `cblite serve` | Starts a (rudimentary) REST API listener |
+| `cblite serve` | Start a (rudimentary) REST API listener |
 
 # Interactive Mode
 
-The tool has an interactive mode that you start by running `cblite /path/to/database`, i.e. with no subcommand. It will then prompt you for commands: each command is a command line without the initial `cblite` or the database-path parameter. Enter `quit` or press Ctrl-D to exit.
+The tool has an interactive mode that you start by running `cblite /path/to/database`, i.e. with no subcommand. It will then prompt you for commands: each command is a command line without the initial `cblite` or the database-path parameter. Enter `quit` or press Ctrl-D to exit. For example:
+
+```
+$ cblite travel-sample.cblite2
+Opened read-only database travel-sample.cblite2/
+(cblite) ls -l --limit 5
+Document ID             Rev ID     Flags   Seq     Size
+airline_10              1-d70614ae ---       1     0.1K
+airline_10123           1-091f80f6 ---       2     0.1K
+airline_10226           1-928c43f4 ---       3     0.1K
+airline_10642           1-5cb6252c ---       4     0.1K
+airline_10748           1-630b0443 ---       5     0.1K
+(Stopping after 5 docs)
+(cblite) quit
+$
+```
 
 When starting interactive mode, you can put a few flags before the database path:
 
 | Flag    | Effect  |
 |---------|---------|
 | `--create` | Creates a new database if the path does not exist. Opens database in writeable mode. |
-| `--writeable` | Opens the database in writeable mode, allowing use of the `put` and `rm` subcommands. |
+| `--writeable` | Opens the database in writeable mode, allowing use of commands like `compact` and `put`. |
 
 # Global Flags
 
@@ -96,14 +112,6 @@ In interactive mode, the database path is already known, so it's used as the sou
 \*\* `--jsonid` works as follows: When _source_ is JSON, this is a property name/path whose value will be used as the document ID. (If omitted, documents are given UUIDs.) When _destination_ is JSON, this is a property name that will be added to the JSON, whose value is the document's ID. (If this flag is omitted, the value defaults to `_id`.)
 
 
-## file
-
-Shows information about the database, such as the number of documents and the latest sequence number.
-
-`cblite file` _databasepath_
-
-`file` _databasepath_
-
 ## help
 
 Displays a list of all commands, or details of a given command.
@@ -111,6 +119,17 @@ Displays a list of all commands, or details of a given command.
 `cblite help` _[subcommand]_
 
 `help` _[subcommand]_
+
+## info (aka file)
+
+Shows information about the database, such as the number of documents and the latest sequence number. 
+With the sub-subcommand `indexes`, it instead lists all the indexes in the database. 
+
+`cblite info` _databasepath_ 
+`cblite info` _databasepath_ `indexes` 
+
+`info` 
+`info indexes` 
 
 ## ls
 
